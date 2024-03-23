@@ -13,7 +13,7 @@ const OrderForm = () => {
     details: { type, size, base },
     orders,
   } = useSelector((state) => state.form);
-  const navigate=useNavigate()
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     dispatch(updateForm({ [e.target.name]: e.target.value }));
@@ -29,8 +29,8 @@ const OrderForm = () => {
       })
     );
     dispatch(resetForm());
-    alert("Order Created Successfully")
-    navigate('/dashboard')
+    alert("Order Created Successfully");
+    navigate("/dashboard");
   };
 
   const diableBtn = !size | !type | !base;
@@ -39,35 +39,39 @@ const OrderForm = () => {
     console.log(orders);
   }, [orders]);
 
-  return (
-    <>
-      <form onSubmit={handleSubmit} className="form">
-        <h1 className="text-center mb-20">Create Order</h1>
-        <CustomRadio
-          label={"Types"}
-          name="type"
-          options={["Veg", "Non-Veg"]}
-          handleChange={handleChange}
-          value={type}
-        />
-        <CustomRadio
-          label={"Size"}
-          name="size"
-          options={["Large", "Medium", "Small"]}
-          handleChange={handleChange}
-          value={size}
-        />
-        <CustomRadio
-          label={"Base"}
-          name="base"
-          options={["Thin", "Thick"]}
-          handleChange={handleChange}
-          value={base}
-        />
-        <CustomButton disabled={diableBtn} label="Create Order" />
-      </form>
-    </>
-  );
+  if (orders.length >= 10) {
+    return <h2 className="mt-20 mb-20">Not taking orders anynore</h2>;
+  } else {
+    return (
+      <>
+        <form onSubmit={handleSubmit} className="form">
+          <h1 className="text-center mb-20">Create Order</h1>
+          <CustomRadio
+            label={"Types"}
+            name="type"
+            options={["Veg", "Non-Veg"]}
+            handleChange={handleChange}
+            value={type}
+          />
+          <CustomRadio
+            label={"Size"}
+            name="size"
+            options={["Large", "Medium", "Small"]}
+            handleChange={handleChange}
+            value={size}
+          />
+          <CustomRadio
+            label={"Base"}
+            name="base"
+            options={["Thin", "Thick"]}
+            handleChange={handleChange}
+            value={base}
+          />
+          <CustomButton disabled={diableBtn} label="Create Order" />
+        </form>
+      </>
+    );
+  }
 };
 
 export default OrderForm;
