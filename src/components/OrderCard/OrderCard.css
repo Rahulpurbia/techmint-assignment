@@ -5,7 +5,7 @@
     background-color: rgb(223, 242, 244);
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     transition: 0.3s;
-    height: 170px;
+    min-height: 170px;
     border-radius: 8px;
     margin-block: 10px;
 }
