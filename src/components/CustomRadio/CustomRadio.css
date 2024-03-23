@@ -1,0 +1,18 @@
+.radio-label {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.radio-option {
+    margin-inline: 10px;
+    font-size: 20px;
+}
+
+.radio-option>input {
+    transform: scale(2);
+}
+
+.radio-options {
+    margin-block: 8px 15px;
+
+}

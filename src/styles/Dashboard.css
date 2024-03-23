@@ -1,0 +1,13 @@
+.dashboard-container {
+    display: flex;
+    margin-block: 50px;
+    border: 1px solid;
+}
+
+.dashboard-container>* {
+    flex: 1;
+}
+
+.dashboard-container>div:not(:last-child) {
+    border-right: 2px solid black;
+}
