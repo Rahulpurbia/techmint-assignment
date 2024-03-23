@@ -4,12 +4,23 @@ import OrderCard from "../OrderCard/OrderCard";
 
 const StagesSection = () => {
   const { orders } = useSelector((state) => state.form);
+
+  const getOrderList = (stage) => {
+    const unsortedOrdersForStage = orders.filter(
+      (order) => order.stage === stage
+    );
+    unsortedOrdersForStage.sort((a, b) => {
+      console.log(a, b);
+      return b.currentStageTime - a.currentStageTime;
+    });
+    return unsortedOrdersForStage;
+  };
   const orderList = useMemo(() => {
     return {
-      placed: orders.filter((order) => order.stage === 1),
-      making: orders.filter((order) => order.stage === 2),
-      ready: orders.filter((order) => order.stage === 3),
-      picked: orders.filter((order) => order.stage === 4),
+      placed: getOrderList(1),
+      making: getOrderList(2),
+      ready: getOrderList(3),
+      picked: getOrderList(4),
     };
   }, [orders]);
   return (

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { updateOrderStatus } from "../../store/formSlice";
 import useTimer from "../../customHooks/useTimer";
@@ -15,6 +15,18 @@ const OrderCard = ({ order }) => {
     getSecondsElapsed(order.currentStageTime)
   );
 
+  const isDelayed = useCallback(
+    (size, minutes) => {
+      console.log(size, minutes);
+      let isDelayed =
+        (size === "Large" && minutes >= 5) ||
+        (size === "Medium" && minutes >= 4) ||
+        (size === "Small" && minutes >= 3);
+
+      return isDelayed;
+    },
+    [minutes, order.size]
+  );
   const handleNext = () => {
     const currentStage = order.stage;
 
@@ -29,8 +41,10 @@ const OrderCard = ({ order }) => {
   };
 
   return (
-    <div className={`order-card ${minutes >= 3 ? "bg-red" : ""}`}>
-      <div>{order.number}</div>
+    <div
+      className={`order-card ${isDelayed(order.size, minutes) ? "bg-red" : ""}`}
+    >
+      <div>Order {order.number}</div>
       <div>{`${order.type}-${order.size}-${order.base}`}</div>
       <div>{timeToStringFormat(hours, minutes, seconds)}</div>
       {order?.stage != 4 && (
