@@ -9,10 +9,9 @@ const StagesSection = () => {
     const unsortedOrdersForStage = orders.filter(
       (order) => order.stage === stage
     );
-    unsortedOrdersForStage.sort((a, b) => {
-      console.log(a, b);
-      return b.currentStageTime - a.currentStageTime;
-    });
+    unsortedOrdersForStage.sort(
+      (a, b) => b.currentStageTime - a.currentStageTime
+    );
     return unsortedOrdersForStage;
   };
   const orderList = useMemo(() => {

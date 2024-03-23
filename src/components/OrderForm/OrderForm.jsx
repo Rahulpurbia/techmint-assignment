@@ -35,12 +35,8 @@ const OrderForm = () => {
 
   const diableBtn = !size | !type | !base;
 
-  useEffect(() => {
-    console.log(orders);
-  }, [orders]);
-
   if (orders.length >= 10) {
-    return <h2 className="mt-20 mb-20">Not taking orders anynore</h2>;
+    return <h2 className="mt-20 mb-20">Currently not accepting orders </h2>;
   } else {
     return (
       <>

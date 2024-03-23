@@ -4,10 +4,18 @@ import { makeAtLeastThreeDigits } from "../utils/makeAtLeastThreeDigits";
 const setOrdersToLocalStore = (state) => {
   localStorage.setItem("orders", JSON.stringify(state.orders));
 };
+
 const setLastOrderNumber = (state) => {
   localStorage.setItem(
     "lastOrderNumber",
     JSON.stringify(state.lastOrderNumber)
+  );
+};
+
+const setOrdersDelivered = (state) => {
+  localStorage.setItem(
+    "ordersDelivered",
+    JSON.stringify(state.ordersDelivered)
   );
 };
 const getOrdersFromLocalStorage = () => {
@@ -15,6 +23,9 @@ const getOrdersFromLocalStorage = () => {
 };
 const getLastOrderNumber = () => {
   return JSON.parse(localStorage.getItem("lastOrderNumber"));
+};
+const getOrdersDelivered = () => {
+  return JSON.parse(localStorage.getItem("ordersDelivered"));
 };
 
 const initialState = {
@@ -27,6 +38,7 @@ const initialState = {
     stage: "",
     number: 0,
   },
+  ordersDelivered:getOrdersDelivered()||0,
   lastOrderNumber: getLastOrderNumber() || 0,
   orders: getOrdersFromLocalStorage() || [],
 };
@@ -57,6 +69,14 @@ export const formSlice = createSlice({
       });
       setOrdersToLocalStore(state);
     },
+    deliverOrder: (state, action) => {
+      state.orders = state.orders.filter((item, index) => {
+        return item.creationTime !== action.payload;
+      });
+      state.ordersDelivered=state.ordersDelivered+1;
+      setOrdersToLocalStore(state);
+      setOrdersDelivered(state)
+    },
     resetForm: (state) => {
       state.details = initialState.details;
     },
@@ -81,6 +101,7 @@ export const {
   createOrder,
   cancelOrder,
   updateOrderStatus,
+  deliverOrder
 } = formSlice.actions;
 
 export default formSlice.reducer;

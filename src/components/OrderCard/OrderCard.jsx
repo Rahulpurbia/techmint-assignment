@@ -1,6 +1,6 @@
 import React, { useCallback } from "react";
 import { useDispatch } from "react-redux";
-import { updateOrderStatus } from "../../store/formSlice";
+import { deliverOrder, updateOrderStatus } from "../../store/formSlice";
 import useTimer from "../../customHooks/useTimer";
 import CustomButton from "../CustomButton/CustomButton";
 import "./OrderCard.css";
@@ -17,7 +17,6 @@ const OrderCard = ({ order }) => {
 
   const isDelayed = useCallback(
     (size, minutes) => {
-      console.log(size, minutes);
       let isDelayed =
         (size === "Large" && minutes >= 5) ||
         (size === "Medium" && minutes >= 4) ||
@@ -37,6 +36,8 @@ const OrderCard = ({ order }) => {
           stage: currentStage + 1,
         })
       );
+    } else {
+      dispatch(deliverOrder(order?.creationTime));
     }
   };
 
@@ -47,14 +48,14 @@ const OrderCard = ({ order }) => {
       <div>Order {order.number}</div>
       <div>{`${order.type}-${order.size}-${order.base}`}</div>
       <div>{timeToStringFormat(hours, minutes, seconds)}</div>
-      {order?.stage != 4 && (
+      {
         <CustomButton
           handleClick={handleNext}
           type="button"
-          label="Next"
+          label={order.stage === 4 ? "Mark Delivered" : "Next"}
           className="mt-30"
         />
-      )}
+      }
     </div>
   );
 };

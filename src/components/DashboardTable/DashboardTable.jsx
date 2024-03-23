@@ -7,11 +7,12 @@ import CustomButton from "../CustomButton/CustomButton";
 import { timeToStringFormat } from "../../utils/formatTime";
 
 const DashboardTable = () => {
-  const { orders } = useSelector((state) => state.form);
+  const { orders, ordersDelivered } = useSelector((state) => state.form);
 
   return (
     <div>
       <h2>Main Section</h2>
+      <h4>Total orders delivered: {ordersDelivered || 0}</h4>
       <table className="w-100 text-center min-height-100">
         <thead>
           <tr>
