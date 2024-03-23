@@ -12,7 +12,7 @@ const DashboardTable = () => {
   return (
     <div>
       <h2>Main Section</h2>
-      <table className="w-100 text-center">
+      <table className="w-100 text-center min-height-300">
         <thead>
           <tr>
             <th>Order Id</th>

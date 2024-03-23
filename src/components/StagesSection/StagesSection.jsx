@@ -15,7 +15,7 @@ const StagesSection = () => {
   return (
     <>
       <h2 className="mb-10">Stage Section</h2>
-      <div className="dashboard-container">
+      <div className="dashboard-container min-height-300">
         {Object.entries(orderList).map((stageArr) => {
           return (
             <div className="text-center" key={stageArr[0]}>

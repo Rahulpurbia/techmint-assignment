@@ -61,3 +61,7 @@ th {
 .px-10 {
   padding-inline: 10px;
 }
+
+.min-height-300 {
+  min-height: 300px;
+}
